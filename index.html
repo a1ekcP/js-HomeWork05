@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <style>
+        thead th{
+            position: relative;
+            cursor: pointer;
+        }
+        .fa{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 5%;
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <div class="container bg-light p-3">
+        <a class="google-link" href="https://google.com.ua" target="_self">Google</a>
+        <div class="load-countries text-center m-3">
+            <button class="btn btn-lg btn-primary">Load Countries</button>
+        </div>
+        <input class="form-control mb-3" id="search" placeholder="Type search here">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th data-attr = "name">Name <i class="fa fa-sort"></i></th>
+                    <th data-attr = "capital">Capital <i class="fa fa-sort"></i></th>
+                    <th data-attr = "region">Region <i class="fa fa-sort"></i></th>
+                    <th data-attr = "area">Area <i class="fa fa-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script src="homework.js"></script>
+</body>
+</html>
