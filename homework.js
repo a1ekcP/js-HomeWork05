@@ -2,7 +2,7 @@ let countries = [];
 let storedCountries = [];
 
 
-//один вариант
+// вариант один
 /*
 function toSort(){
     for(i of document.querySelectorAll('[data-attr]')){
@@ -36,6 +36,7 @@ function toSort(){
 }
 */
 
+//вариант 2
 function toSort(){
     for(i of document.querySelectorAll('[data-attr]')){
         i.onclick = function(event){
