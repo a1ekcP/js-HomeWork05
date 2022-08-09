@@ -1,13 +1,18 @@
 let countries = [];
 let storedCountries = [];
 
+
+//один вариант
+/*
 function toSort(){
     for(i of document.querySelectorAll('[data-attr]')){
         i.onclick = function(event){
+            for(y of event.currentTarget.children){
+                y.classList.toggle('d-none')
+            }
             for(i of document.querySelectorAll('thead i')){
                 i.parentElement.classList.remove('bg-success');
                 i.parentElement.classList.remove('bg-secondary')
-                i.className = '';
             }
             let key = event.currentTarget.getAttribute('data-attr');
             isSorted = event.currentTarget.getAttribute('data-sort');
@@ -20,18 +25,47 @@ function toSort(){
             });
             if(isSorted){
                 event.currentTarget.classList.add('bg-secondary');
-                event.currentTarget.lastChild.className = 'fa fa-sort-desc';
                 event.currentTarget.removeAttribute('data-sort');
             }else{
                 event.currentTarget.classList.add('bg-success');
-                event.currentTarget.lastChild.className = 'fa fa-sort-asc';
                 event.currentTarget.setAttribute('data-sort', '+');
             }
             renderCountries(sortCntrs);
         }
     }
 }
+*/
 
+function toSort(){
+    for(i of document.querySelectorAll('[data-attr]')){
+        i.onclick = function(event){
+            let key = event.currentTarget.getAttribute('data-attr');
+            isSorted = event.currentTarget.getAttribute('data-sort');
+            storedCountries.length ? selectCountries = storedCountries : selectCountries = countries;
+            let sortCntrs = selectCountries.sort(function(a, b){
+                if(isSorted){
+                    return a[key] > b[key] ? -1 : 1;
+                }
+                return a[key] > b[key] ? 1 : -1;
+            });
+            for(i of document.querySelectorAll('thead i')){
+                i.parentElement.classList.remove('bg-success');
+                i.parentElement.classList.remove('bg-secondary')
+                i.classList.add('d-none');
+            }
+            if(isSorted){
+                event.currentTarget.classList.add('bg-secondary');
+                event.currentTarget.removeAttribute('data-sort');
+                event.currentTarget.firstElementChild.classList.remove('d-none');
+            }else{
+                event.currentTarget.lastElementChild.classList.remove('d-none');
+                event.currentTarget.classList.add('bg-success');
+                event.currentTarget.setAttribute('data-sort', '+');
+            }
+            renderCountries(sortCntrs);
+        }
+    }
+}
 
 function checkSelect() {
     document.querySelector('.countries-select').onchange = function(event) {
