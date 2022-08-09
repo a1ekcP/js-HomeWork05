@@ -2,7 +2,7 @@ let countries = [];
 let storedCountries = [];
 
 
-// вариант один
+// вариант 1
 /*
 function toSort(){
     for(i of document.querySelectorAll('[data-attr]')){
