@@ -6,7 +6,7 @@ let storedCountries = [];
 /*
 function toSort(){
     for(i of document.querySelectorAll('[data-attr]')){
-        i.onclick = function(event){
+        i.onclick = event => {
             for(y of event.currentTarget.children){
                 y.classList.toggle('d-none')
             }
@@ -17,7 +17,7 @@ function toSort(){
             let key = event.currentTarget.getAttribute('data-attr');
             isSorted = event.currentTarget.getAttribute('data-sort');
             storedCountries.length ? selectCountries = storedCountries : selectCountries = countries;
-            let sortCntrs = selectCountries.sort(function(a, b){
+            let sortCntrs = selectCountries.sort((a, b) => {
                 if(isSorted){
                     return a[key] > b[key] ? -1 : 1;
                 }
@@ -39,11 +39,11 @@ function toSort(){
 //вариант 2
 function toSort(){
     for(i of document.querySelectorAll('[data-attr]')){
-        i.onclick = function(event){
+        i.onclick = event => {
             let key = event.currentTarget.getAttribute('data-attr');
             isSorted = event.currentTarget.getAttribute('data-sort');
             storedCountries.length ? selectCountries = storedCountries : selectCountries = countries;
-            let sortCntrs = selectCountries.sort(function(a, b){
+            let sortCntrs = selectCountries.sort((a, b) => {
                 if(isSorted){
                     return a[key] > b[key] ? -1 : 1;
                 }
@@ -69,11 +69,9 @@ function toSort(){
 }
 
 function checkSelect() {
-    document.querySelector('.countries-select').onchange = function(event) {
+    document.querySelector('.countries-select').onchange = event => {
         const value = event.currentTarget.value;
-        const filteredCountries = countries.filter(function(country) {
-            return country.region === value;
-        })
+        const filteredCountries = countries.filter(country => country.region === value);
         renderCountries(filteredCountries.length ? filteredCountries : countries);
         storedCountries = filteredCountries;
         document.getElementById('search').value = '';
@@ -81,17 +79,14 @@ function checkSelect() {
 }
 
 function renderSelect(countries) {
-    const uniqueRegions = countries.reduce(function(acc, country) {
+    const uniqueRegions = countries.reduce((acc, country) => {
         if(!acc.includes(country.region)) {
             acc.push(country.region);
         }
         return acc;
     }, []);
     let htmlStr = `<option value="">Not Selected</option>`;
-    htmlStr += uniqueRegions.map(function(region) {
-        return `<option value="${region}">${region}</option>`;
-    }).join('');
-
+    htmlStr += uniqueRegions.map(region => `<option value="${region}">${region}</option>`).join('');
     let selectElement = document.createElement('select');
     selectElement.className = "countries-select form-control my-3";
     selectElement.innerHTML = htmlStr;
@@ -101,16 +96,16 @@ function renderSelect(countries) {
 
 function setListeners() {
     let tbody = document.querySelector('.table tbody');
-    tbody.onclick = function(e) {
+    tbody.onclick = event => {
         for(let item of document.querySelectorAll('table tbody td')) {
             item.classList.remove('bg-warning');
         }
-        e.target.classList.add('bg-warning');
+        event.target.classList.add('bg-warning');
     }
 }
 
 function renderCountries(countries) {
-    const htmlStr = countries.reduce(function(acc, country, index) {
+    const htmlStr = countries.reduce((acc, country, index) => {
         return acc + `<tr>
                     <td>${index + 1}</td>
                     <td>${country.name}</td>
@@ -127,7 +122,7 @@ function renderCountries(countries) {
 document.getElementById('search').onkeyup = function(e) {
     let searchValue = e.currentTarget.value.toLowerCase().trim();
     filteredCountries = (storedCountries.length ? storedCountries : countries)
-        .filter(function(country) {
+        .filter(country => {
         const name = country.name.toLowerCase();
         const capital = country.capital.toLowerCase();
         const region = country.region.toLowerCase();
@@ -140,7 +135,7 @@ document.getElementById('search').onkeyup = function(e) {
 }
 
 
-document.querySelector('.google-link').onclick = function(e) {
+document.querySelector('.google-link').onclick = event => {
     let value = confirm('You are going to leave the page. Are you sure?');
     if(!value) {
         e.preventDefault();
@@ -150,11 +145,9 @@ document.querySelector('.google-link').onclick = function(e) {
 
 document.querySelector('.load-countries').onclick = function() {
     document.querySelector('.load-countries button').setAttribute('disabled', '');
-    fetch('https://restcountries.com/v2/all').then(function (data){
-        return data.json();
-    }).then(function(data) {
+    fetch('https://restcountries.com/v2/all').then(data => data.json()).then(data => {
         document.querySelector('.load-countries button').removeAttribute('disabled');
-        countries = data.map(function(country) {
+        countries = data.map(country => {
             return {
                 name: country.name,
                 capital: country.capital || '',
